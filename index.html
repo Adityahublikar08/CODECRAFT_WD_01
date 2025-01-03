@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Landing Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation styles */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            transition: background 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+        }
+
+        nav.scrolled {
+            background: #1e90ff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 15px;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+            transform: scale(1.1);
+        }
+
+        nav a.active {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        /* Section styles */
+        section {
+            height: 100vh;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #home {
+            background: linear-gradient(135deg, #ff7f50, #ff6347);
+            color: #fff;
+        }
+
+        #services {
+            background: linear-gradient(135deg, #1e90ff, #4682b4);
+            color: #fff;
+        }
+
+        #contact {
+            background: linear-gradient(135deg, #32cd32, #228b22);
+            color: #fff;
+        }
+
+        #footer {
+            background: #333;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        button {
+            background: #ffcc00;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #ffd700;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="#footer">Footer</a>
+    </nav>
+
+    <section id="home">
+        <h1>Welcome to Our Landing Page</h1>
+        <p>Your one-stop destination for all your needs. Scroll down to discover more!</p>
+    </section>
+
+    <section id="services">
+        <h1>Our Services</h1>
+        <p>We offer a variety of services tailored to meet your expectations. Let us serve you with excellence.</p>
+        <button>Learn More</button>
+    </section>
+
+    <section id="contact">
+        <h1>Contact Us</h1>
+        <p>Have any questions? Feel free to reach out. We're here to help!</p>
+        <button>Get in Touch</button>
+    </section>
+
+    <section id="footer">
+        <h1>Footer</h1>
+        <p>Thank you for visiting our website. Stay connected for more updates!</p>
+    </section>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const sections = document.querySelectorAll('section');
+        const navLinks = navbar.querySelectorAll('a');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
